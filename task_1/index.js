@@ -1,6 +1,30 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8980;
+
+app.get('/', (req, res) => {
+  const page = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Simple form</title>
+    </head>
+    <body>
+      <form action="/service" method="get">
+        <input type="text" placeholder="Name" name="name" />
+        <br />
+        <input type="password" placeholder="Password" name="password" />
+        <br />
+        <button>submit</button>
+      </form>
+    </body>
+    </html>
+  `;
+  res.send(page)
+});
 
 app.get('/service', (req, res) => {
   const name = req.query.name;
@@ -18,7 +42,7 @@ app.get('/service', (req, res) => {
       <title>Simple form</title>
     </head>
     <body>
-      <form action="http://localhost:3000/service" method="get">
+      <form action="/service" method="get">
         <input type="text" placeholder="Name" name="name" ${!isNameValid && 'style="border-color: red"' } value=${name} />
         <br />
         <input type="password" placeholder="Password" name="password" ${!isPasswordValid && 'style="border-color: red"' } value=${password} />
