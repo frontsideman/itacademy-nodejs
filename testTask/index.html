@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Тестовое задание к курсу «Архитектура веб-проектов на Node.js</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Решение задачи:</h1>
+    <div class="wrap">
+      <div class="item">
+        <code>
+<pre>
+const baseUrl = 'https://fe.it-academy.by/Examples/words_tree/';
+const firstFile = 'root.txt';
+
+let phrase = '';
+
+const isJson = str => {
+  try {
+    JSON.parse(str);
+  } catch (error) {
+    return false;
+  }
+  return true;
+}
+
+async function fetchAsync (url) {
+  let data;
+  try {
+    const response = await fetch(url);
+    data = await response.text();
+  } catch (error) {
+    return false;
+  }
+  if (isJson(data)) {
+    const parsedData = JSON.parse(data);
+    for (let i=0; i<parsedData.length; i++) {
+      await fetchAsync(baseUrl + parsedData[i])
+    }
+  } else if (typeof data === 'string') {
+    phrase = phrase + ' ' + data;
+  }
+  return phrase;
+}
+
+(async () => {
+  const phrase = await fetchAsync(baseUrl + firstFile);
+  document.querySelector('h1').innerHTML = phrase.slice(1);
+})();
+</pre>
+        </code>
+        <button class="solution1">Run this (async/await) code >></button>
+        <div class="solution-container"></div>
+      </div>
+      <div class="item">
+        <code>
+<pre></pre>
+        </code>
+        <button class="solution2">Run this (promise) code >></button>
+        <div class="solution-container"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="./script.js"></script>
+</body>
+</html>

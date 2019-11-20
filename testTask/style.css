@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.wrap {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.item {
+  flex: 0 1 50%;
+}
+
+.item + .item {
+  border-left: 1px solid;
+}
+
+pre {
+  margin: 0;
+  padding: 10px;
+  background-color: #eee;
+}
+
+code {
+  display: block;
+}
+
+button {
+  padding: 10px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px 0;
+}
